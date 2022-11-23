@@ -50,7 +50,7 @@ function layThongTinNV(isAdd){
 
 
     }   
-
+    //d
     if (!isValid) return;
 
     // tao doi tuong nv
@@ -83,11 +83,22 @@ getEle("btnThem").onclick = function(){
  */
 
 getEle("btnThemNV").onclick = function (){
-    console.log("dwf");
+    //console.log("dwf");
     var nv = layThongTinNV(true);
-
-    dsnv.themNV(nv);
+    if (nv){
+        dsnv.themNV(nv);
+        console.log(dsnv.arr);
+        renderTable(dsnv.arr);
+    }
+    
+}
+function deleteNV(taiKhoan){
+    
+    dsnv.xoaSV(taiKhoan);
+    
     renderTable(dsnv.arr);
+   
+    
 }
 // f
 function renderTable(data){
@@ -95,6 +106,7 @@ function renderTable(data){
 
     for (var i = 0; i < data.length ; i++){
         var nv = data[i];
+        console.log(nv);
         content += `
             <tr>
                 <td>${nv.taiKhoan}</td>
@@ -106,9 +118,21 @@ function renderTable(data){
                 <td>${nv.chucVu}</td>
                 <td>${nv.gioLam}</td>
                 <td>${nv.luong}</td>
+                <td>
+                    <button class="btn btn-danger" onclick="deleteSV('${nv.taiKhoan}')">Delete
+                    </button>
+                </td>
             </tr>
            
         `;
     }
     getEle("tableDanhSach").innerHTML = content;
+};
+
+function deleteSV(taiKhoan){
+    dsnv.xoaNV(taiKhoan);
+
+    renderTable(dsnv.arr);
+
 }
+
